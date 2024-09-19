@@ -1,10 +1,12 @@
-import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/layout";
 import Home from "./routes/home";
 import Profile from "./routes/profile";
 import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
 import { createGlobalStyle } from "styled-components";
+import { useEffect, useState } from "react";
+import LoadingScreen from "./components/loading-screen";
 
 const router = createBrowserRouter([
   {
@@ -45,10 +47,21 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function App() {
-  return <>
+  const [isLoading, setLogin] = useState(true);
+  const init = async() => {
+    // firebase 기다림
+    // setTimeout(() => setIsLoding(false), 2000);
+    setLogin(false);
+  }
+  useEffect(() => {
+    init();
+  }, []);
+  return (
+  <>
     <GlobalStyles />
-    <RouterProvider router={router} />
-  </>;
+    {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+  </>
+  );
 }
 
 export default App
