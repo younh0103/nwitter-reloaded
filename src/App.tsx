@@ -10,6 +10,7 @@ import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/protected-route";
 import reset from "styled-reset";
+import FindPassword from "./routes/find-password";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path : "/create-account", 
     element : <CreateAccount />
+  },
+  {
+    path : "/find-password",
+    element : <FindPassword />
   },
 ]);
 

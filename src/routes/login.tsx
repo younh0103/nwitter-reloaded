@@ -49,6 +49,10 @@ export default function CreateAccount() {
             Don't have an account ?{" "}
             <Link to="/create-account">Create one &rarr;</Link>
         </Switcher>
+        <Switcher>
+            Forgot Password ?{" "}
+            <Link to="/find-password">Find password &rarr;</Link>
+        </Switcher>
         <GithubButton />
     </Wrapper>
     );
