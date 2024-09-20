@@ -42,7 +42,7 @@ export default function FindPassword() {
 
     return (
         <Wrapper>
-            <Title>Find password</Title>
+            <Title>Forgot password</Title>
             <Form onSubmit={onSubmit}>
                 <Input onChange={onChange} name="email" value={email}
                 placeholder="Email" type="email" required />
@@ -51,7 +51,7 @@ export default function FindPassword() {
             {error !== "" ? <Error>{error}</Error> : null}
             <Switcher>
                 Already have an account ?{" "}
-                <Link to="/login">Login &rarr;</Link>
+                <Link to="/login">Log in</Link>
             </Switcher>
         </Wrapper>
     )

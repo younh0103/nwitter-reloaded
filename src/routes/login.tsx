@@ -38,20 +38,19 @@ export default function CreateAccount() {
     }
     return (
     <Wrapper>
-        <Title>Log into 𝕏</Title>
+        <Title>𝕏</Title>
         <Form onSubmit={onSubmit}>
             <Input onChange={onChange} name="email" value={email} placeholder="Email" type="email" required/>
             <Input onChange={onChange} name="password" value={password} placeholder="Password" type="password" required/>
-            <Input type="submit" value={isLoading ? "Loding..." : "Login"}/>
+            <Input type="submit" value={isLoading ? "Loading..." : "Log In"}/>
         </Form>
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>
-            Don't have an account ?{" "}
-            <Link to="/create-account">Create one &rarr;</Link>
+            New to 𝕏 ?{" "}
+            <Link to="/create-account">Sign up</Link>
         </Switcher>
         <Switcher>
-            Forgot Password ?{" "}
-            <Link to="/find-password">Find password &rarr;</Link>
+            <Link to="/find-password">Forgot Password ?</Link>
         </Switcher>
         <GithubButton />
     </Wrapper>

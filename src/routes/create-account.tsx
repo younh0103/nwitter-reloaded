@@ -45,17 +45,17 @@ export default function CreateAccount() {
     }
     return (
     <Wrapper>
-        <Title>Join 𝕏</Title>
+        <Title>Create a 𝕏 account</Title>
         <Form onSubmit={onSubmit}>
             <Input onChange={onChange} name="name" value={name} placeholder="Name" type="text" required/>
             <Input onChange={onChange} name="email" value={email} placeholder="Email" type="email" required/>
             <Input onChange={onChange} name="password" value={password} placeholder="Password" type="password" required/>
-            <Input type="submit" value={isLoading ? "Loding..." : "Create Account"}/>
+            <Input type="submit" value={isLoading ? "Loading..." : "Create Account"}/>
         </Form>
         {error !== "" ? <Error>{error}</Error> : null}
         <Switcher>
             Already have an account ?{" "}
-            <Link to="/login">Login &rarr;</Link>
+            <Link to="/login">Log in</Link>
         </Switcher>
         <GithubButton />
     </Wrapper>
