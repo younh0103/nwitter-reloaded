@@ -5,6 +5,7 @@ import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Error, Input, Switcher, Title, Wrapper, Form } from "../components/auth-components";
 import GithubButton from "../components/github-btn";
+import GoogleButton from "../components/google-btn";
 
 export default function CreateAccount() {
     const navigate = useNavigate();
@@ -52,6 +53,7 @@ export default function CreateAccount() {
         <Switcher>
             <Link to="/find-password">Forgot Password ?</Link>
         </Switcher>
+        <GoogleButton />
         <GithubButton />
     </Wrapper>
     );

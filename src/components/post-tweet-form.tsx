@@ -68,7 +68,17 @@ export default function PostTweetForm() {
     const onFileChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         const {files} = e.target;
         if(files && files.length === 1) {
-            setFile(files[0]);
+            const file = files[0];
+            // 파일 크기 제한 (1MB 이하)
+            const maxFileSize = 1 * 1024 * 1024;    // 1MB(1,048,576 bytes)
+            if(file.size > maxFileSize) {
+                alert("파일 크기는 1MB 이하만 업로드할 수 있습니다.");
+                setFile(null);
+            } else {
+                setFile(file);
+            }
+            // 동일 파일 선택 시 onChange 이벤트가 발생하도록 input 값 초기화.
+            e.target.value = '';
         }
     };
     const onSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
