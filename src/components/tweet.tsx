@@ -19,9 +19,10 @@ const Column = styled.div`
 `;
 
 const Photo = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 15px;
+    margin-left: 10px;
 `;
 
 const Username = styled.span`
@@ -55,6 +56,17 @@ const EditButton = styled.button`
     margin-right: 5px;
 `;
 
+const CancelButton = styled.button`
+    background-color: green;
+    color: white;
+    font-weight: 600;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+`;
+
 export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
     const [isEditing, setIsEditing] = useState(false);
     const user = auth.currentUser;
@@ -79,10 +91,11 @@ export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
     return(
         <Wrapper>
             <Column>
-                <Username>{username}</Username>
+                {isEditing ? null : <Username>{username}</Username>}
                 {isEditing ? (<EditTweetForm tweet={tweet} photo={photo} id={id} setIsEditing={setIsEditing}></EditTweetForm>) : (<Payload>{tweet}</Payload>)}
-                {user ?.uid === userId ? <EditButton onClick={onEdit}>Edit</EditButton> : null }
-                {user ?.uid === userId ? <DeleteButton onClick={onDelete}>Delete</DeleteButton> : null }
+                {isEditing ? null : user ?.uid === userId ? <EditButton onClick={onEdit}>Edit</EditButton> : null }
+                {isEditing ? null : user ?.uid === userId ? <DeleteButton onClick={onDelete}>Delete</DeleteButton> : null }
+                {isEditing ? <CancelButton onClick={onEdit}>Cancel</CancelButton> : null}
             </Column>
             <Column>
             {photo ? (
