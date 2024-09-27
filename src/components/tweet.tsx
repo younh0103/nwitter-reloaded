@@ -57,7 +57,7 @@ const EditButton = styled.button`
 `;
 
 const CancelButton = styled.button`
-    background-color: green;
+    background-color: #b7beb7;
     color: white;
     font-weight: 600;
     padding: 5px 10px;
@@ -94,7 +94,7 @@ export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
                 {isEditing ? null : <Username>{username}</Username>}
                 {isEditing ? (<EditTweetForm tweet={tweet} photo={photo} id={id} setIsEditing={setIsEditing}></EditTweetForm>) : (<Payload>{tweet}</Payload>)}
                 {isEditing ? null : user ?.uid === userId ? <EditButton onClick={onEdit}>Edit</EditButton> : null }
-                {isEditing ? null : user ?.uid === userId ? <DeleteButton onClick={onDelete}>Delete</DeleteButton> : null }
+                {user ?.uid === userId ? <DeleteButton onClick={onDelete}>Delete</DeleteButton> : null }
                 {isEditing ? <CancelButton onClick={onEdit}>Cancel</CancelButton> : null}
             </Column>
             <Column>
