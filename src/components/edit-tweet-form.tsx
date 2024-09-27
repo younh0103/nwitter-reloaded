@@ -59,7 +59,14 @@ const SubmitBtn = styled.input`
     }
 `;
 
-export default function EditTweetForm({ tweet, photo, id, setIsEditing }){
+export interface EditTweet{
+    tweet: string,
+    photo?: string,
+    id: string,
+    setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
+};
+
+export default function EditTweetForm({ tweet, photo, id, setIsEditing }:EditTweet){
     const [isLoading, setIsLoading] = useState(false);
     const [editTweet, setEditTweet] = useState(tweet);
     const [editFile, setEditFile] = useState<File | null>(null);
