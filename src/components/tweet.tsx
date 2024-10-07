@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import { ITweet } from "./timeline";
 import { auth, db, storage } from "../firebase";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc} from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { useState } from "react";
 import EditTweetForm from "./edit-tweet-form";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr;
     padding: 20px;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 15px;
 `;
 
 const Column = styled.div`
-
+    
 `;
 
 const Photo = styled.img`
@@ -67,8 +69,18 @@ const CancelButton = styled.button`
     margin-top: 5px;
 `;
 
+const LikeButton = styled.div`
+    margin: 20px 0 10px 0;
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+`;
+
 export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
     const [isEditing, setIsEditing] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
+    const [islikeCount, setLikeCount] = useState(0);
     const user = auth.currentUser;
     const onDelete = async() => {
         const ok = confirm("Are you sure you want to delete this tweet ?");
@@ -88,6 +100,24 @@ export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
     
     const onEdit = () => setIsEditing((prev) => !prev);
 
+    const onLiked = async() => {
+        const tweetRef = doc(db, "tweets", id);
+
+        if(!user || isLiked) {
+            setIsLiked(false);
+            setLikeCount(islikeCount - 1);
+            await updateDoc(tweetRef, {
+                likeCount: islikeCount - 1,
+            });
+        } else {
+            setIsLiked(true);
+            setLikeCount(islikeCount + 1);
+            await updateDoc(tweetRef, {
+                likeCount: islikeCount + 1,
+            });
+        }
+    };
+
     return(
         <Wrapper>
             <Column>
@@ -102,6 +132,11 @@ export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
                 <Photo src={photo} />
             ) : null}
             </Column>
+            <LikeButton onClick={onLiked}>
+                {isLiked ? 
+                   <HeartFilled style={{color: 'red'}}/> : <HeartOutlined/> }
+                <h3>  {islikeCount}</h3>
+            </LikeButton>
         </Wrapper>
     )
 }
